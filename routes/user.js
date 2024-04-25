@@ -1,6 +1,11 @@
 const express = require("express");
 const router = express.Router()
-const User = require("../models/User")
+
+const User = require("../models/UserReg")
+const UserLogin = require("../models/UserLogin")
+
+// const 
+
 const bcryptjs = require('bcryptjs');
 
 const jwt = require('jsonwebtoken');
@@ -75,7 +80,7 @@ router.post("/user/login", async (req, res) => {
             return
         }
 
-        const user = await User.find({ email: email });
+        const user = await UserLogin.find({ email: email });
         console.log(user)
 
         if (!user[0]) {
@@ -91,7 +96,6 @@ router.post("/user/login", async (req, res) => {
         console.log("isvalid", isValid)
         if (isValid) {
 
-            // const token = await jwt.sign({ userId: user[0]._id }, "secret")
 
             const token = await jwt.sign({ userId: user[0]._id }, "secret")
 

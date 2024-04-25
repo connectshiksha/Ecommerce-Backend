@@ -9,6 +9,10 @@ dbConnection();
 
 const userRouter = require("./routes/user");
 
+const ProductDetails = require("./routes/product_details")
+
+const Admin_login = require("./routes/adminlogin")
+
 const bodyParser = require('body-parser')
 
 //cors ...
@@ -27,6 +31,10 @@ app.get("/", (req, res) => {
 })
 
 app.use(userRouter);
+
+app.use(ProductDetails)
+
+app.use(Admin_login)
 
 // listen to port
 app.listen(port, () => {
