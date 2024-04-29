@@ -34,14 +34,14 @@ const imagekitClient = new imagekit({
 });
 
 router.post("/products_detail", AdminVerification,multerUploads, async (req, res) => {
-    // const { pro_categories, pro_name, pro_price, pro_description, pro_availability, size, quantity, tags, imageurl } = req.body;
+    const { pro_categories, pro_name, pro_price, pro_description, pro_availability, size, quantity, tags, imageurl } = req.body;
 
-    // if (!pro_categories || !pro_name  || !pro_price, !pro_description, !pro_availability, !size, !quantity, !tags, !imageurl) {
-    //     return res.status(400).json({
-    //         status: false,
-    //         message: "Please provide all the details"
-    //     })
-    // }
+    if (!pro_categories || !pro_name  || !pro_price, !pro_description, !pro_availability, !size, !quantity, !tags, !imageurl) {
+        return res.status(400).json({
+            status: false,
+            message: "Please provide all the details"
+        })
+    }
     try {
 
         // uploading image 
@@ -56,23 +56,23 @@ router.post("/products_detail", AdminVerification,multerUploads, async (req, res
             transformation: [{ height: 300, width: 400 }]
         });
 
-        // const product = new Products_detail({
-        //     pro_categories,
-        //     pro_name,
-        //     pro_price,
-        //     pro_description,
-        //     pro_availability,
-        //     size,
-        //     quantity,
-        //     tags,
-        //     imageurl: transformedUrl
-        // })
+        const product = new Products_detail({
+            pro_categories,
+            pro_name,
+            pro_price,
+            pro_description,
+            pro_availability,
+            size,
+            quantity,
+            tags,
+            imageurl: transformedUrl
+        })
 
-        // await product.save();
+        await product.save();
         res.status(200).json({
             status: true,
             message: "Product is added Successfully",
-            data: transformedUrl
+            data: product
         })
 
     } catch (e) {
